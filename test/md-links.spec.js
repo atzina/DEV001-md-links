@@ -1,5 +1,6 @@
 const { mdLinks } = require('../index.js');
 
+
 describe('mdLinks', () => {
   it('should...', () => {
     console.log('FIX ME!');
@@ -11,9 +12,14 @@ describe('mdLinks', () => {
     expect(error).toStrictEqual(new Error('la ruta no existe'));
   }));
 });
+// describe('mdLinks', () => {
+//   it('si existe', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+//   expect(value).toHaveBeenCalled('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
+//   }));
+// });
 
 describe('mdLinks', () => {
-  it('debe hacer algo si la ruta existe', () => mdLinks('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md').then((value) => {
-    expect(value).toBe('si existe la ruta');
+  it('si es una ruta relativa cambia a absoluta', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+  expect(value).toEqual('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
   }));
 });
