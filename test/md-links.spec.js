@@ -1,4 +1,5 @@
-const { mdLinks } = require('../index.js');
+const { mdLinks } = require('../index');
+const { turnPathAbsolute, pathExists, pathIsAbsolute } = require('../functions');
 
 
 describe('mdLinks', () => {
@@ -17,9 +18,34 @@ describe('mdLinks', () => {
 //   expect(value).toHaveBeenCalled('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
 //   }));
 // });
+describe('pathExists', () => {
+  it('si existe el archivo', () => {
+    pathExists('./Prueba/ejemplo.md');
+    expect(pathExists('./Prueba/ejemplo.md')).toEqual(true);
+  });
+});
+
+describe('pathIsAbsolute', () => {
+  it('dice si es una ruta absoluta', () => {
+    pathIsAbsolute('./Prueba/ejemplo.md');
+    expect(pathIsAbsolute('./Prueba/ejemplo.md')).toEqual(false);
+  });
+});
+
+// describe('mdLinks', () => {
+//   it('si es una ruta relativa la cambia a absoluta', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+//   expect(value).toEqual('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
+//   }));
+// });
+describe('turnPathAbsolute', () => {
+  it('si es una ruta relativa la cambia a absoluta', () => {
+    turnPathAbsolute('./Prueba/ejemplo.md');
+    expect(turnPathAbsolute('./Prueba/ejemplo.md')).toEqual('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
+  });
+});
 
 describe('mdLinks', () => {
-  it('si es una ruta relativa cambia a absoluta', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
-  expect(value).toEqual('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
+  it('debe leer el contenido del documento', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+  expect(value).toEqual('hola md');
   }));
 });
