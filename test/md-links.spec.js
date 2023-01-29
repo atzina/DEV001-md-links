@@ -1,5 +1,5 @@
 const { mdLinks } = require('../index');
-const { turnPathAbsolute, pathExists, pathIsAbsolute, isMd } = require('../functions');
+const { turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd } = require('../functions');
 
 
 describe('mdLinks', () => {
@@ -70,8 +70,21 @@ describe('mdLinks', () => {
 //   }));
 // });
 
+describe('readFiles', () => {
+  it('lee el contenido de un archivo md', () => {
+    readFiles('./Prueba/ejemplo.md');
+    expect(readFiles('./Prueba/ejemplo.md')).toEqual('hola md');
+  });
+});
+
+// describe('mdLinks', () => {
+//   it('debe leer el contenido del documento', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+//   expect(value).toEqual('hola md');
+//   }));
+// });
+
 describe('mdLinks', () => {
-  it('debe leer el contenido del documento', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
-  expect(value).toEqual('hola md');
+  it('debe devolver un array de links', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
+  expect(value).toEqual(['[archivo md](https://github.com/atzina/DEV001-cipher/blob/main/README.md)']);
   }));
 });
