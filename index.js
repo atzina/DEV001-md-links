@@ -1,6 +1,6 @@
 const { pathExists } = require('./functions');
 const {
-  pathIsAbsolute, turnPathAbsolute, readFiles, isMd,
+  pathIsAbsolute, turnPathAbsolute, readFiles, isMd, getLinks,
 } = require('./functions');
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
@@ -13,20 +13,20 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
     const pathAbsolute = turnPathAbsolute(path);
     if (!isMd(pathAbsolute)) {
       reject(new Error('no es un archivo md'));
-    }
-    if (isMd(pathAbsolute)) {
-      resolve(readFiles(pathAbsolute));
+    } else { // resolve(readFiles(pathAbsolute));
+      resolve(getLinks(pathAbsolute));
     }
   }
 });
-console.log(pathExists('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md'));
-console.log(pathExists('C:/noexsiste.md'));
-console.log(pathIsAbsolute('./functions)'));
-console.log(turnPathAbsolute('./functions)'));
-console.log(readFiles('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md'));
-console.log(isMd('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md'));
-console.log(isMd('./Prueba/ejemplo.md'));
-
+// console.log(pathExists('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md'));
+// console.log(pathExists('C:/noexsiste.md'));
+// console.log(pathIsAbsolute('./functions)'));
+// console.log(turnPathAbsolute('./functions)'));
+// console.log(readFiles('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md'));
+// console.log(isMd('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md'));
+// console.log(isMd('./Prueba/ejemplo.md'));
+// // console.log(arrayOfMd('./Prueba/ejemplo.md'));
+// console.log(getLinks('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md'));
 
 module.exports = {
   mdLinks,
