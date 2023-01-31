@@ -42,12 +42,12 @@ const getLinks = (route) => new Promise((resolve, reject) => {
    .catch((error) => reject(error));
   });
   // const links = readFiles(isMd(route)).match(urlLinks);
-
 //   if (isMd(route)) {
 //     return readFiles(route).match(urlLinks);// map transforma un arreglo en otro
 //   }
 //   return []; // puede ser error
 // };
+const getStatus = (urls) => urls.map(arrayLinks)
 
 module.exports = {
   pathExists,
