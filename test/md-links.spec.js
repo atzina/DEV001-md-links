@@ -1,5 +1,25 @@
 const { mdLinks } = require('../index');
-const { turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd } = require('../functions');
+const {
+  turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd, getLinks,
+} = require('../functions');
+
+const absolutRoute = 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md';
+const array = [
+  {
+    href: 'https://github.com/atzina/DEV001-cipher/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+
+  },
+  {
+    href: 'https://github.com/atzina/DEV001-data-lovers/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+  },
+];
+const contents = 'hola md'
+'[archivo md](https://github.com/atzina/DEV001-cipher/blob/main/README.md);'
+'[archivo md](https://github.com/atzina/DEV001-data-lovers/blob/main/README.md);'
 
 
 describe('mdLinks', () => {
@@ -60,7 +80,7 @@ describe('isMd', () => {
 
 describe('mdLinks', () => {
   it('sale error si no es archivo md', () => mdLinks('./Prueba/ejemplo.html').catch((error) => {
-  expect(error).toStrictEqual(new Error('no es un archivo md'));
+    expect(error).toStrictEqual(new Error('no es un archivo md'));
   }));
 });
 
@@ -83,8 +103,8 @@ describe('readFiles', () => {
 //   }));
 // });
 
-describe('mdLinks', () => {
-  it('debe devolver un array de links', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
-  expect(value).toEqual(['[archivo md](https://github.com/atzina/DEV001-cipher/blob/main/README.md)']);
+describe('getLinks', () => {
+  it('trae los links a un array y les agrega propiedades', async () => getLinks(absolutRoute).then((data) => {
+    expect(data).toEqual(array);
   }));
 });
