@@ -1,8 +1,10 @@
-/* eslint-disable indent */
 const fs = require('fs');
 const path = require('path');
 const fsPromises = require('fs/promises');
 const { fileURLToPath } = require('url');
+const { url } = require('inspector');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const axios = require('axios');
 
 const pathExists = (route) => fs.existsSync(route);
 const pathIsAbsolute = (AbsoluteRoute) => path.isAbsolute(AbsoluteRoute);
@@ -22,9 +24,10 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
+
 const getLinks = (route) => new Promise((resolve, reject) => {
-    const links = [];
-    readFiles(route)
+  const links = [];
+  readFiles(route)
     .then((data) => {
       const urlLinks = /\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g;
       let match = urlLinks.exec(data);
@@ -39,16 +42,37 @@ const getLinks = (route) => new Promise((resolve, reject) => {
 
       resolve(links);
     })
-   .catch((error) => reject(error));
-  });
+    .catch((error) => reject(error));
+});
   // const links = readFiles(isMd(route)).match(urlLinks);
 //   if (isMd(route)) {
 //     return readFiles(route).match(urlLinks);// map transforma un arreglo en otro
 //   }
 //   return []; // puede ser error
 // };
-const getStatus = (urls) => urls.map(arrayLinks)
+const array = [
+  {
+    href: 'https://github.com/atzina/DEV001-cipher/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
 
+  },
+  {
+    href: 'https://github.com/atzina/DEV001-data-lovers/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+  },
+];
+const getStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
+  .then((respuesta) => {
+  // const { status } = respuesta;
+    console.log(respuesta.status);
+    return { ...link, status: respuesta.status, message: 'ok' };
+  })
+  .catch((error) => {
+    return { ...link, status: error.status, message: 'fail' };
+  })));
+getStatus(array).then((resolve) => console.log((resolve)));
 module.exports = {
   pathExists,
   pathIsAbsolute,
@@ -56,4 +80,5 @@ module.exports = {
   readFiles,
   isMd,
   getLinks,
+  getStatus,
 };
