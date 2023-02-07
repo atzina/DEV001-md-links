@@ -24,7 +24,6 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
-
 const getLinks = (route) => new Promise((resolve, reject) => {
   const links = [];
   readFiles(route)
@@ -58,21 +57,41 @@ const array = [
 
   },
   {
-    href: 'https://github.com/atzina/DEV001-data-lovers/blob/main/README.md',
+    href: 'https://github.com/atzin/DEV001-data-lovers/blob/main/README.md',
     text: 'archivo md',
     file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
   },
 ];
 const getStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
   .then((respuesta) => {
-  // const { status } = respuesta;
-    console.log(respuesta.status);
-    return { ...link, status: respuesta.status, message: 'ok' };
+    if (respuesta.status >= 200 && respuesta.status <= 299) {
+      // console.log(respuesta);
+      return {
+        href: link.href,
+        text: link.text,
+        file: link.file,
+        status: respuesta.status,
+        Ok: respuesta.statusText,
+      };
+    }
   })
-  .catch((error) => {
-    return { ...link, status: error.status, message: 'fail' };
-  })));
-getStatus(array).then((resolve) => console.log((resolve)));
+  .catch((error) => ({
+    href: link.href,
+    text: link.text,
+    file: link.file,
+    status: error.response.status,
+    Ok: 'fail',
+  }))));
+
+// getStatus(array).then((resolve) => {
+//   console.log((resolve));
+// })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// console.log(getStatus(array));
+
 module.exports = {
   pathExists,
   pathIsAbsolute,
