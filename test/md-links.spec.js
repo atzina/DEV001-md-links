@@ -1,6 +1,6 @@
 const { mdLinks } = require('../index');
 const {
-  turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd, getLinks,
+  turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd, getLinks, getStatus,
 } = require('../functions');
 
 const absolutRoute = 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md';
@@ -17,10 +17,38 @@ const array = [
     file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
   },
 ];
-const contents = 'hola md'
-'[archivo md](https://github.com/atzina/DEV001-cipher/blob/main/README.md);'
-'[archivo md](https://github.com/atzina/DEV001-data-lovers/blob/main/README.md);'
-
+const arrayValidate = [
+  {
+    href: 'https://github.com/atzina/DEV001-cipher/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+    status: 200,
+    Ok: 'OK'
+  },
+  {
+    href: 'https://github.com/atzina/DEV001-data-lovers/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+    status: 200,
+    Ok: 'OK'
+  }
+];
+const arrayInvalid = [
+  {
+    href: 'https://github.com/atzin/DEV001-cipher/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md'
+  },
+];
+const arrayStatusInvalid = [
+  {
+    href: 'https://github.com/atzina/DEV001-cipher/blob/main/README.md',
+    text: 'archivo md',
+    file: 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md',
+    status: 404,
+    Ok: 'fail'
+    },
+]
 
 describe('mdLinks', () => {
   it('should...', () => {
@@ -29,15 +57,12 @@ describe('mdLinks', () => {
   // it('Debería devolver una promesa', () => {
   //   expect(mdLinks()).toBe(typeof Promise);
   // });
+});
+describe('mdLinks', () => {
   it('debe rechazar cuando el path no existe', () => mdLinks('/estepathnoexiste.md').catch((error) => {
-    expect(error).toStrictEqual(new Error('la ruta no existe'));
+  expect(error).toEqual(new Error('la ruta no existe'));
   }));
 });
-// describe('mdLinks', () => {
-//   it('si existe', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
-//   expect(value).toHaveBeenCalled('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md');
-//   }));
-// });
 describe('pathExists', () => {
   it('si existe el archivo', () => {
     pathExists('./Prueba/ejemplo.md');
@@ -91,20 +116,48 @@ describe('mdLinks', () => {
 // });
 
 describe('readFiles', () => {
-  it('lee el contenido de un archivo md', () => {
-    readFiles('./Prueba/ejemplo.md');
-    expect(readFiles('./Prueba/ejemplo.md')).toEqual('hola md');
-  });
+  it('lee el contenido de un archivo md', () => readFiles('./Prueba/ejemplodos.md').then((data) => {
+    expect(data).toEqual('no tengo links');
+  }));
+});
+describe('readFiles', () => {
+  it('lanza un error si no tiene links', () => readFiles('./Prueba/ejemplosinlinks.md').catch((data) => {
+    expect(data).toEqual(new Error());
+  }));
+});
+describe('mdLinks', () => {
+  it('lanza un error si no tiene links', () => mdLinks('./Prueba/ejemplosinlinks.md').catch((error) => {
+    expect(error).toEqual(new Error('no tiene links'));
+  }));
 });
 
-// describe('mdLinks', () => {
-//   it('debe leer el contenido del documento', () => mdLinks('./Prueba/ejemplo.md').then((value) => {
-//   expect(value).toEqual('hola md');
-//   }));
-// });
-
 describe('getLinks', () => {
-  it('trae los links a un array y les agrega propiedades', async () => getLinks(absolutRoute).then((data) => {
+  it('trae los links a un array y les agrega propiedades', () => getLinks(absolutRoute).then((data) => {
     expect(data).toEqual(array);
+  }));
+});
+describe('getLinks', () => {
+  it('lanza error no tiene links', () => getLinks(absolutRoute).catch((data) => {
+    expect(data).toEqual(new Error('no tiene links'));
+  }));
+});
+
+
+describe('getStatus', () => {
+  it('valida los links haciendo una petición http', () => getStatus(array).then((data) => {
+    expect(data).toEqual(arrayValidate);
+  }));
+});
+
+describe('getStatus', () => {
+  it('valida los links que NO sirven haciendo una petición http', () => getStatus(arrayInvalid).catch((data) => {
+    expect(data).toEqual(arrayStatusInvalid);
+  }));
+});
+
+// evaluar getStatus desde mdLinks
+describe('mdLinks', () => {
+  it('valdia los links haciendo una petición http', () => mdLinks('./Prueba/ejemplo.md').then((data) => {
+    expect(data).toEqual(arrayValidate);
   }));
 });
