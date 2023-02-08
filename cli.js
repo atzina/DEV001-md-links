@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // donde va a leer los argumentos de línea de comando y pasarlo a mdlinks
 // eslint-disable-next-line import/no-extraneous-dependencies
 const chalk = require('chalk');
