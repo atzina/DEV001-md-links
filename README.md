@@ -1,7 +1,38 @@
-# Markdown Links#
+# Markdown Links
+## diagrama de flujo
 ![figma diagrama de flujo](https://user-images.githubusercontent.com/89883023/217404372-b233cef0-4d1a-45ec-a0fc-4e27ff30b377.png)
 
-<img src = >
+## 1. Acerca de atzina-md-links
+## 2. Cómo instalar
+## 3. Recomendaciones para el uso
+## 4. Estado de desarrollo del producto
+
+## 1. Acerca de atzina-md-links
+Markdown es un lenguaje común entre los desarrolladores como son los Readmes, que sirven de presentación de los proyectos de desarrollo web. Este proyecto es un ejecutable que busca obtener los links válidos y no válidos, y en general algunas estadísticas básicas de estos.  
+Es un ejercicio que se acerca a el uso del CLI y su itegración en el aprendizaje de JS y NODE.JS.
+
+## 2. Cómo instalar
+Para instalar md-links, es necesario ejecutar en la terminal el siguiente comando :
+
+npm i atzina-md-links
+
+## 3. Recomendaciones para el uso
+md-Links + ruta del archivo + Opciones
+
+Opciones:
+
+--validate
+Si agregas esta opción observarás el total de links y al final de su HERF, la palabra 'OK' o 'fail'. OK significa que los links son válidos, y 'fail' que se encuentran rotos.
+Asimismo verás un conteo total de links rotos.
+
+--stats
+Observarás el total de links, y un conteo de los que no estan repetidos
+
+--validate --stats
+Al agregar estas dos opciones jutas observarás un conteo de los link totales, los links que no se repiten y los links rotos, teniendo un panorama general del estado de los links.  
+
+## 4. Estado de desarrollo del producto
+Como posibles desarrollos de este producto, está el incluir no solo archivos sino directorios. Asimismo puede desarrollarse el CLI para hacer mas compleja la interacción con el usuario, como mostrar errores, mensajes de bienvenida y ayuda, mismos que no contiene este ejercicio básico.
 
 # Markdown Links
 
