@@ -2,6 +2,8 @@ const { mdLinks } = require('../index');
 const {
   turnPathAbsolute, pathExists, pathIsAbsolute, isMd, readFiles, arrayOfMd, getLinks, getStatus,
 } = require('../functions');
+const { totalLinks, uniqueLinks, brokenLinks } = require('../cli')
+
 
 const absolutRoute = 'C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md';
 const array = [
@@ -48,7 +50,10 @@ const arrayStatusInvalid = [
     status: 404,
     Ok: 'fail'
     },
-]
+];
+const totalLenth = 'Total : 2';
+const uniqueResult = 'Unique : 2';
+const brokenResult = 'Broken : 1';
 
 describe('mdLinks', () => {
   it('should...', () => {
@@ -157,7 +162,28 @@ describe('getStatus', () => {
 
 // evaluar getStatus desde mdLinks
 describe('mdLinks', () => {
-  it('valdia los links haciendo una petición http', () => mdLinks('./Prueba/ejemplo.md').then((data) => {
+  it('valida los links haciendo una petición http', () => mdLinks('./Prueba/ejemplo.md').then((data) => {
     expect(data).toEqual(arrayValidate);
   }));
+});
+
+describe('totalLinks', () => {
+  it('devuelve la extensión del array', () => {
+    totalLinks(array);
+    expect(totalLinks(array)).toEqual(totalLenth);
+  });
+});
+
+describe('uniqueLinks', () => {
+  it('devuelve los links que no se repiten', () => {
+    uniqueLinks(array);
+    expect(uniqueLinks(array)).toEqual(uniqueResult);
+  });
+});
+
+describe('brokenLinks', () => {
+  it('devuelve la extensión del array', () => {
+    brokenLinks(arrayStatusInvalid);
+    expect(brokenLinks(arrayStatusInvalid)).toEqual(brokenResult);
+  });
 });
