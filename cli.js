@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const { mdLinks } = require('./index');
 
 const route = process.argv[2];
-console.log(route);
+// console.log(route);
 const arg = process.argv;
 const validate = arg.includes('--validate');
 const stats = arg.includes('--stats');
@@ -19,6 +19,8 @@ const brokenLinks = (array) => {
   const broken = array.filter((link) => link.status === 'fail' || link.status > 400 || link.status < 199);
   return `Broken : ${broken.length}`;
 };
+const arrays = (array) => `${array}`;
+
 // const linksOk = (array) => {
 //   const oki = array.filter((link) => link.status === 'OK' || link.status >= 200 || link.stats <= 299);
 //   return `Links Ok : ${oki.length}`;
@@ -42,7 +44,6 @@ mdLinks(route, { validate: true }).then((value) => {
       ${'HREF :'} ${chalk.magenta(link.href)} ${chalk.yellowBright(link.Ok)}
       `);
     });
-    console.log(chalk.red(brokenLinks(value)));
     // value.forEach((linkbrok) => {
     //   console.log(`
     // ${'HREF :'} ${chalk.red(linkbrok.href)}
@@ -57,6 +58,7 @@ mdLinks(route, { validate: true }).then((value) => {
   } else if (stats) {
     console.log(chalk.blue(totalLinks(value)));
     console.log(chalk.magenta(uniqueLinks(value)));
+    console.log(chalk.red(brokenLinks(value)));
   }
 })
   .catch((error) => {

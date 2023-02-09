@@ -187,3 +187,9 @@ describe('brokenLinks', () => {
     expect(brokenLinks(arrayStatusInvalid)).toEqual(brokenResult);
   });
 });
+
+// describe('mdLinks', () => {
+//   it('devuelve el array si validate es false', () => mdLinks('./Prueba/ejemplo.md').then((data) => {
+//     expect(data).toEqual(arrayValidate);
+//   }));
+// });

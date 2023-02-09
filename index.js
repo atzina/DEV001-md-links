@@ -28,7 +28,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
 // console.log(pathExists('C:/noexsiste.md'));
 // console.log(pathIsAbsolute('./functions)'));
 // console.log(turnPathAbsolute('./functions)'));
-console.log(readFiles('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md').then);
+// console.log(readFiles('C:/Users/AT/Documents/DEV001-md-links/Prueba/ejemplo.md').then);
 // console.log(isMd('C:\\Users\\AT\\Documents\\DEV001-md-links\\Prueba\\ejemplo.md'));
 // console.log(isMd('./Prueba/ejemplo.md'));
 // // console.log(arrayOfMd('./Prueba/ejemplo.md'));
