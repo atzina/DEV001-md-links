@@ -23,13 +23,12 @@ Opciones:
 
 --validate
 Si agregas esta opción observarás el total de links y al final de su HERF, la palabra 'OK' o 'fail'. OK significa que los links son válidos, y 'fail' que se encuentran rotos.
-Asimismo verás un conteo total de links rotos.
 
 --stats
-Observarás el total de links, y un conteo de los que no estan repetidos
+Observarás el total de links, un conteo de los que no estan repetidos, y un total de los rotos.
 
 --validate --stats
-Al agregar estas dos opciones jutas observarás un conteo de los link totales, los links que no se repiten y los links rotos, teniendo un panorama general del estado de los links.  
+Al agregar estas dos opciones jutas observarás un conteo de los link totales, los links que no se repiten y los links rotos, y el HREF de los links, en cuyo final se observa OK si son válidos y FAIL si están rotos. Con esta inforamción obtienes un panorama general del estado de los links.  
 
 ## 4. Estado de desarrollo del producto
 Como posibles desarrollos de este producto, está el incluir no solo archivos sino directorios. Asimismo puede desarrollarse el CLI para hacer mas compleja la interacción con el usuario, como mostrar errores, mensajes de bienvenida y ayuda, mismos que no contiene este ejercicio básico.
