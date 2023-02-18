@@ -143,7 +143,7 @@ describe('getLinks', () => {
 });
 describe('getLinks', () => {
   it('lanza error no tiene links', () => getLinks(absolutRoute).catch((data) => {
-    expect(data).toEqual(new Error('no tiene links'));
+    expect(data).toEqual(new Error('no tiene links')); // ToThrow investigar
   }));
 });
 

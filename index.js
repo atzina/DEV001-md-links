@@ -1,6 +1,6 @@
 const { pathExists } = require('./functions');
 const {
-  turnPathAbsolute, readFiles, isMd, getLinks, getStatus,
+  turnPathAbsolute, isMd, getLinks, getStatus,
 } = require('./functions');
 
 const mdLinks = (path, options) => new Promise((resolve, reject) => {
