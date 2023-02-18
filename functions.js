@@ -1,8 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const fsPromises = require('fs/promises');
-const { fileURLToPath } = require('url');
-const { url } = require('inspector');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const axios = require('axios');
 
@@ -11,7 +8,7 @@ const pathIsAbsolute = (AbsoluteRoute) => path.isAbsolute(AbsoluteRoute);
 // ternario = Si la ruta es absoluta es true, devolver la ruta,
 // de lo contrario aplicar path.resolve para convertirla.
 const turnPathAbsolute = (route) => (pathIsAbsolute(route) ? route : path.resolve(route));
-const isMd = (route) => path.extname(route) === '.md'; // tengo duda si esta función necesita de parametro turnPahtAbsolute?
+const isMd = (route) => path.extname(route) === '.md';
 // const readFiles = (route) => fs.readFileSync(route, 'utf-8');
 // const readFiles = (route) => fsPromises.readFile(route, { encoding: 'utf-8' });
 const readFiles = (route) => new Promise((resolve, reject) => {
@@ -29,6 +26,8 @@ const getLinks = (route) => new Promise((resolve, reject) => {
   readFiles(route)
     .then((data) => {
       const urlLinks = /\[(.+?)\]\((https?:\/\/[^\s)]+)\)/g;
+      // exec es un método que ejecuta una búsqueda de una coincidencia en una cadena especicada y
+      // devuelve un array de resultados
       let match = urlLinks.exec(data);
       while (match !== null) { // while se ejecuta hasta que la condición () da falsa.
         links.push({

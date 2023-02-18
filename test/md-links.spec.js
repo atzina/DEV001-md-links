@@ -143,7 +143,7 @@ describe('getLinks', () => {
 });
 describe('getLinks', () => {
   it('lanza error no tiene links', () => getLinks(absolutRoute).catch((data) => {
-    expect(data).toEqual(new Error('no tiene links'));
+    expect(data).toEqual(new Error('no tiene links')); // ToThrow investigar
   }));
 });
 
@@ -187,3 +187,9 @@ describe('brokenLinks', () => {
     expect(brokenLinks(arrayStatusInvalid)).toEqual(brokenResult);
   });
 });
+
+// describe('mdLinks', () => {
+//   it('devuelve el array si validate es false', () => mdLinks('./Prueba/ejemplo.md').then((data) => {
+//     expect(data).toEqual(arrayValidate);
+//   }));
+// });
